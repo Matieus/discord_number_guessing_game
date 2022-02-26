@@ -29,7 +29,7 @@ class Numgame(commands.Cog):
         embed.description += f"Python {console_start} shell\n"
 
         embed.description += f">>> numgame(max={maximum})\n"
-        embed.description += f"Odgadnij liczbę od 1 do {maximum}!\n>>> ```"
+        embed.description += f"Guess a number from 1 to {maximum}!\n>>> ```"
         mes = await ctx.send(embed=embed)
         while guess != 0:
             try:
@@ -39,7 +39,7 @@ class Numgame(commands.Cog):
                 attempt = int(msg.content)
             except asyncio.TimeoutError:
                 embed.description = embed.description[:-3]
-                embed.description += "\nZa długi czas oczekiwania\n```"
+                embed.description += "\nToo long waiting time\n```"
                 await mes.edit(embed=embed)
                 break
 
@@ -61,14 +61,14 @@ class Numgame(commands.Cog):
                 guess = 0
 
             elif attempt != number and guess == 0:
-                embed.description += "Nie udało Ci się! ```"
+                embed.description += "You did not guess! ```"
                 guess = 0
 
             await mes.edit(embed=embed)
 
         await asyncio.sleep(1)
         embed.description = embed.description[:-3]
-        embed.description += f"To {number}!```"
+        embed.description += f"It was {number}!```"
         await mes.edit(embed=embed)
 
 
@@ -94,5 +94,5 @@ def conjugation(guess: int) -> str:
     if guess > 1:
         return f"{guess} tries left"
 
-    elif guess > 1 and guess % 10 < 5:
+    elif guess == 1:
         return f"{guess} try left"
